@@ -30,7 +30,6 @@
     "eslint": "^6.3.0"
   },
   "dependencies": {
-    "amos-topics": "github:solviofoundation/amos-topics#master",
     "ramda": "^0.26.1"
   }
 }
