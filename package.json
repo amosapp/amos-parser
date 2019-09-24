@@ -28,7 +28,8 @@
     "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "@babel/preset-env": "^7.6.0",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.3.0"
+    "eslint": "^6.3.0",
+    "husky": "^3.0.5"
   },
   "dependencies": {
     "@babel/cli": "^7.6.2",
@@ -36,5 +37,10 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run-script build"
+    }
   }
 }
