@@ -54,7 +54,7 @@ const parse = (data) => {
 
 
     if (indentation === 0) {
-      console.log(createNode)
+      query += createNode
       // update topicsCum
       topicsCum.push(topics)
       // create parents
@@ -79,11 +79,11 @@ const parse = (data) => {
         // not very rigorous
         // console.log('MATCH!', )
         const primaryTopic = toPascalCase(topicsCum[match][0], 0)
-        console.log(createRelationship(primaryTopic, last(parents)))
+        query += createRelationship(primaryTopic, last(parents))
         parents.push(primaryTopic)
       } else {
-        console.log(createNode)
-        console.log(createRelationship(primaryTopicPascalCase, last(parents)))
+        query += createNode
+        query += createRelationship(primaryTopicPascalCase, last(parents))
         topicsCum.push(topics)
         parents.push(primaryTopicPascalCase)
       }
