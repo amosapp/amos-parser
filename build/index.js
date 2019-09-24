@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _fs = _interopRequireDefault(require("fs"));
 
 var _path = _interopRequireDefault(require("path"));
@@ -7,10 +12,8 @@ var _path = _interopRequireDefault(require("path"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // TODO: rewrite
-var filePath = _path["default"].join(__dirname, '.', 'all');
-
-var file = _fs["default"].readFileSync(filePath, 'utf8');
-
+// const filePath = path.join(__dirname, '.', 'all');
+// const file = fs.readFileSync(filePath, 'utf8');
 var TAB = 2;
 
 var setToValue = function setToValue(obj, value, path) {
@@ -62,5 +65,5 @@ var parse = function parse(data) {
   return obj;
 };
 
-var parsed = parse(file);
-console.log('parsed', parsed);
+var _default = parse;
+exports["default"] = _default;
