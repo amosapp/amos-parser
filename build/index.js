@@ -4,66 +4,103 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
-var _fs = _interopRequireDefault(require("fs"));
-
-var _path = _interopRequireDefault(require("path"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-// TODO: rewrite better
-// const filePath = path.join(__dirname, '.', 'all');
+// const fs = require('fs');
+// const path = require('path');
+// const filePath = path.join(__dirname, '..', 'all');
 // const file = fs.readFileSync(filePath, 'utf8');
+var INDENTATION_LIMIT = 0;
 var TAB = 2;
 
-var setToValue = function setToValue(obj, value, path) {
-  var i;
-  path = path.split('.');
+var last = function last(arr) {
+  return arr[arr.length - 1];
+};
 
-  for (i = 0; i < path.length - 1; i++) {
-    obj = obj[path[i]];
-  }
+var toPascalCase = function toPascalCase(string, lineIndex) {
+  var words = string.split(' ');
+  var wordsWithoutInvalidChars = words.map(function (word) {
+    return word.replace(/\W/g, '');
+  });
+  var pascalCaseArr = wordsWithoutInvalidChars.map(function (word) {
+    word = word.toLowerCase();
 
-  obj[path[i]] = value;
+    if (word[0] && word[0].toUpperCase() && word.substring(1)) {
+      var pascalCase = word[0].toUpperCase() + word.substring(1);
+      return pascalCase;
+    } else {
+      throw "Bad topic name: ".concat(string, ", ").concat(wordsWithoutInvalidChars, ", ").concat(lineIndex);
+    }
+  });
+  return pascalCaseArr.join('');
 };
 
 var parse = function parse(data) {
   var arrOfLines = data.split('\n');
   var parents = [];
-  var obj = {};
+  var topicsCum = [];
+  var query = '';
 
   for (var i = 0; i < arrOfLines.length; i++) {
-    var line = arrOfLines[i]; // const splitLine = line.split(/\S/)
+    var line = arrOfLines[i]; // allow blank spaces
 
+    if (line === '') continue;
     var numberOfSpaces = line.search(/\S/);
     var indentation = numberOfSpaces / TAB; // console.log('indentation', arrOfLines[i], indentation)
 
-    if (indentation < 0) continue;
-    var topic = line.substring(numberOfSpaces);
-    console.log('topic', topic);
+    var topicsString = line.substring(numberOfSpaces); // allow comments (#)
 
-    switch (indentation) {
-      case 0:
-        // create object
-        setToValue(obj, {}, topic); // create parents
+    if (topicsString[0] === '#') continue;
+    var topics = topicsString.split(' / ');
+    var primaryTopicPascalCase = toPascalCase(topics[0], i);
+    var createNode = "CREATE (".concat(primaryTopicPascalCase, ":Topic {name: '").concat(primaryTopicPascalCase, "', names:['").concat(topics, "']})\n");
 
-        parents = [topic];
-        break;
+    var createRelationship = function createRelationship(child, parent) {
+      return "CREATE (".concat(child, ")-[:IS_PART_OF]->(").concat(parent, ")\n");
+    };
 
-      case 1:
-        setToValue(obj, {}, "".concat(parents[0], ".").concat(topic));
-        parents = [parents[0], topic];
-        break;
+    if (indentation === 0) {
+      console.log(createNode); // update topicsCum
 
-      case 2:
-        setToValue(obj, {}, "".concat(parents[0], ".").concat(parents[1], ".").concat(topic));
-        parents = [parents[0], parents[1], topic];
-        break;
+      topicsCum.push(topics); // create parents
+
+      parents = [primaryTopicPascalCase];
+    } else if (indentation > 0 && (INDENTATION_LIMIT === 0 || indentation <= INDENTATION_LIMIT)) {
+      // console.log('primaryTopicPascalCase, indentation, parents, ', primaryTopicPascalCase, indentation, parents, )
+      parents = parents.slice(0, indentation);
+      var match = 0;
+
+      for (var _i = 0; _i < topicsCum.length; _i++) {
+        for (var j = 0; j < topicsCum[_i].length; j++) {
+          for (var k = 0; k < topics.length; k++) {
+            if (topicsCum[_i][j] === topics[k]) {
+              match = _i;
+            }
+          }
+        }
+      }
+
+      if (match > 0) {
+        // not very rigorous
+        // console.log('MATCH!', )
+        var primaryTopic = toPascalCase(topicsCum[match][0], 0);
+        console.log(createRelationship(primaryTopic, last(parents)));
+        parents.push(primaryTopic);
+      } else {
+        console.log(createNode);
+        console.log(createRelationship(primaryTopicPascalCase, last(parents)));
+        topicsCum.push(topics);
+        parents.push(primaryTopicPascalCase);
+      }
     }
   }
 
-  return obj;
+  return query;
 };
 
-var _default = parse;
+var _default = parse; // // Out
+// let output = parse(file)
+// output += `
+// WITH Mathematics as m
+// MATCH (a) RETURN a
+// `
+
 exports["default"] = _default;
