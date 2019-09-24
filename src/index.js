@@ -3,8 +3,8 @@ import path from 'path'
 
 // TODO: rewrite
 
-const filePath = path.join(__dirname, '.', 'all');
-const file = fs.readFileSync(filePath, 'utf8');
+// const filePath = path.join(__dirname, '.', 'all');
+// const file = fs.readFileSync(filePath, 'utf8');
 
 const TAB = 2
 
@@ -53,5 +53,4 @@ const parse = data => {
   return obj
 }
 
-const parsed = parse(file)
-console.log('parsed', parsed)
+export default parse
