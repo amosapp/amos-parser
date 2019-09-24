@@ -11,7 +11,7 @@ var _path = _interopRequireDefault(require("path"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// TODO: rewrite
+// TODO: rewrite better
 // const filePath = path.join(__dirname, '.', 'all');
 // const file = fs.readFileSync(filePath, 'utf8');
 var TAB = 2;
