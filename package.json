@@ -1,6 +1,6 @@
 {
   "name": "@solviofoundation/amos-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -34,6 +34,6 @@
     "ramda": "^0.26.1"
   },
   "publishConfig": {
-      "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/"
   }
 }
