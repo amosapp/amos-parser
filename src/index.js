@@ -1,6 +1,6 @@
 import {R} from './common'
-import parse from './parse'
-import cypherOnly from './cypher'
+import amosToJson from './amos-to-json'
+import jsonToCypher from './json-to-cypher'
 
-export default parse
-export const cypher = R.pipe (parse, cypherOnly) 
+export default amosToJson
+export const amosToCypher = R.pipe (amosToJson, jsonToCypher)
