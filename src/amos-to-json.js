@@ -130,7 +130,8 @@ handle = R.converge (handle_rec (baseCase)) ([R.always (0), R.identity]),
 parse = R.pipe(
   H.lines,
   prepare,
-  handle
+  handle,
+  R.objOf (`graph`)
 )
 
 // const [graph_final] = parse (topics)

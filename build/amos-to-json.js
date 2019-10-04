@@ -130,7 +130,8 @@ handle = _common.R.converge(handle_rec(baseCase))([_common.R.always(0), _common.
 parse = _common.R.pipe(
 _common.H.lines,
 prepare,
-handle);
+handle,
+_common.R.objOf("graph"));
 
 
 // const [graph_final] = parse (topics)
