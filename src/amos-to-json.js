@@ -104,7 +104,7 @@ handle_child = state => val => i => linesFromBase => {
  * @description Takes a 2-element state, the line index and lines and returns the 
  */
 handle_rec = state => (idx, lines) => {
-  lines[idx] |> console.log ('handleRecCall, lines[idx]', #)
+  // lines[idx] |> console.log ('handleRecCall, lines[idx]', #)
   const [ind, name] = R.nth (idx) (lines)
   /* Has correct indentation */
   H.assert (ind % TAB === 0) (`indivisible indentation at ${idx}: ${name}`)
@@ -116,7 +116,7 @@ handle_rec = state => (idx, lines) => {
   if (ind_next <= ind) return state
   const end = R.findIndex (R.pipe (R.nth (0), R.gte (ind))) (R.slice (idx + 1) (Infinity) (lines))
   const end_edited = end === -1 ? lines.length : end
-  state[1] |> console.log ('state[1]', #)
+  // state[1] |> console.log ('state[1]', #)
   const state_ = H.superReduce (handle_child) ([state[0], state[1], idx, ind, ind_next, [], []]) (R.slice (idx + 1) (idx + 1 + end_edited) (lines))
   const children_idxs = R.map (R.add (idx + 1)) (state_[5])
   const children_node_idxs = state_[6]
@@ -131,6 +131,7 @@ parse = R.pipe(
   H.lines,
   prepare,
   handle,
+  R.nth (0),
   R.objOf (`graph`)
 )
 

@@ -103,9 +103,9 @@ handle_child = function handle_child(state) {return function (val) {return funct
 /**
                 * @description Takes a 2-element state, the line index and lines and returns the 
                 */
-handle_rec = function handle_rec(state) {return function (idx, lines) {var _lines$idx, _state$;
-    _lines$idx = lines[idx], console.log('handleRecCall, lines[idx]', _lines$idx);var _R$nth =
-    _common.R.nth(idx)(lines),_R$nth2 = _slicedToArray(_R$nth, 2),ind = _R$nth2[0],name = _R$nth2[1];
+handle_rec = function handle_rec(state) {return function (idx, lines) {
+    // lines[idx] |> console.log ('handleRecCall, lines[idx]', #)
+    var _R$nth = _common.R.nth(idx)(lines),_R$nth2 = _slicedToArray(_R$nth, 2),ind = _R$nth2[0],name = _R$nth2[1];
     /* Has correct indentation */
     _common.H.assert(ind % TAB === 0)("indivisible indentation at ".concat(idx, ": ").concat(name));
     /* Is not last node */
@@ -116,7 +116,7 @@ handle_rec = function handle_rec(state) {return function (idx, lines) {var _line
     if (ind_next <= ind) return state;
     var end = _common.R.findIndex(_common.R.pipe(_common.R.nth(0), _common.R.gte(ind)))(_common.R.slice(idx + 1)(Infinity)(lines));
     var end_edited = end === -1 ? lines.length : end;
-    _state$ = state[1], console.log('state[1]', _state$);
+    // state[1] |> console.log ('state[1]', #)
     var state_ = _common.H.superReduce(handle_child)([state[0], state[1], idx, ind, ind_next, [], []])(_common.R.slice(idx + 1)(idx + 1 + end_edited)(lines));
     var children_idxs = _common.R.map(_common.R.add(idx + 1))(state_[5]);
     var children_node_idxs = state_[6];
@@ -131,6 +131,7 @@ parse = _common.R.pipe(
 _common.H.lines,
 prepare,
 handle,
+_common.R.nth(0),
 _common.R.objOf("graph"));
 
 
