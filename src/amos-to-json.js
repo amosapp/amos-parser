@@ -42,18 +42,18 @@ createGraph = graph => nodes_idx => name => {
   if (R.isEmpty (nodes_sat)) {
     /* Add new node */
     // return addEdge (graph) (nodes_idx) (name)
-    const id = H.toPascalCase(names[0])
-    const node = {id, metadata: {names}}
+    // const id = H.toPascalCase(names[0])
+    const node = {metadata: {names}}
 
-    const graph_ = {nodes: R.append (node) (nodes), edges: R.append ({source: id, target: nodes[nodes_idx].id}) (edges)}
+    const graph_ = {nodes: R.append (node) (nodes), edges: R.append ({child: names[0], parent: nodes[nodes_idx].metadata.names[0]}) (edges)}
     return [graph_, R.length (nodes)]
   } else {
     /* Connect to existing */
-    const {id} = nodes_sat[0]
+    const {metadata: {names_sat}} = nodes_sat[0]
     const idx = R.findIndex (R.propEq (`id`, id)) (nodes)
 
     // R.over
-    const graph_ = {nodes: R.over (R.lensPath ([idx, `metadata`, `names`])) (R.union (names)) (nodes), edges: R.append ({source: id, target: nodes[nodes_idx].id}) (edges)}
+    const graph_ = {nodes: R.over (R.lensPath ([idx, `metadata`, `names`])) (R.union (names)) (nodes), edges: R.append ({child: names_sat[0], target: nodes[nodes_idx].metadata.names[0]}) (edges)}
     return [graph_, idx]
   }
 },

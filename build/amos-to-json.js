@@ -42,18 +42,18 @@ createGraph = function createGraph(graph) {return function (nodes_idx) {return f
       if (_common.R.isEmpty(nodes_sat)) {
         /* Add new node */
         // return addEdge (graph) (nodes_idx) (name)
-        var id = _common.H.toPascalCase(names[0]);
-        var node = { id: id, metadata: { names: names } };
+        // const id = H.toPascalCase(names[0])
+        var node = { metadata: { names: names } };
 
-        var graph_ = { nodes: _common.R.append(node)(nodes), edges: _common.R.append({ source: id, target: nodes[nodes_idx].id })(edges) };
+        var graph_ = { nodes: _common.R.append(node)(nodes), edges: _common.R.append({ child: names[0], parent: nodes[nodes_idx].metadata.names[0] })(edges) };
         return [graph_, _common.R.length(nodes)];
       } else {
         /* Connect to existing */var
-        _id = nodes_sat[0].id;
-        var idx = _common.R.findIndex(_common.R.propEq("id", _id))(nodes);
+        names_sat = nodes_sat[0].metadata.names_sat;
+        var idx = _common.R.findIndex(_common.R.propEq("id", id))(nodes);
 
         // R.over
-        var _graph_ = { nodes: _common.R.over(_common.R.lensPath([idx, "metadata", "names"]))(_common.R.union(names))(nodes), edges: _common.R.append({ source: _id, target: nodes[nodes_idx].id })(edges) };
+        var _graph_ = { nodes: _common.R.over(_common.R.lensPath([idx, "metadata", "names"]))(_common.R.union(names))(nodes), edges: _common.R.append({ child: names_sat[0], target: nodes[nodes_idx].metadata.names[0] })(edges) };
         return [_graph_, idx];
       }
     };};},
