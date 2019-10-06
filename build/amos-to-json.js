@@ -53,7 +53,7 @@ createGraph = function createGraph(graph) {return function (nodes_idx) {return f
         var idx = _common.R.findIndex(_common.R.propEq("id", id))(nodes);
 
         // R.over
-        var _graph_ = { nodes: _common.R.over(_common.R.lensPath([idx, "metadata", "names"]))(_common.R.union(names))(nodes), edges: _common.R.append({ child: names_sat[0], target: nodes[nodes_idx].metadata.names[0] })(edges) };
+        var _graph_ = { nodes: _common.R.over(_common.R.lensPath([idx, "metadata", "names"]))(_common.R.union(names))(nodes), edges: _common.R.append({ child: names_sat[0], parent: nodes[nodes_idx].metadata.names[0] })(edges) };
         return [_graph_, idx];
       }
     };};},

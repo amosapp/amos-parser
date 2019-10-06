@@ -53,7 +53,7 @@ createGraph = graph => nodes_idx => name => {
     const idx = R.findIndex (R.propEq (`id`, id)) (nodes)
 
     // R.over
-    const graph_ = {nodes: R.over (R.lensPath ([idx, `metadata`, `names`])) (R.union (names)) (nodes), edges: R.append ({child: names_sat[0], target: nodes[nodes_idx].metadata.names[0]}) (edges)}
+    const graph_ = {nodes: R.over (R.lensPath ([idx, `metadata`, `names`])) (R.union (names)) (nodes), edges: R.append ({child: names_sat[0], parent: nodes[nodes_idx].metadata.names[0]}) (edges)}
     return [graph_, idx]
   }
 },
