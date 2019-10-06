@@ -1,6 +1,6 @@
-"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports["default"] = void 0;var _common = require("./common");function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {return;}var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}var _require =
+"use strict";Object.defineProperty(exports, "__esModule", { value: true });exports["default"] = void 0;var _common = require("./common");function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {return;}var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}
 
-require("@solviofoundation/amos-topics"),topics = _require["default"];
+var topics = require("@solviofoundation/amos-topics");
 
 var
 // topics = `
@@ -10,36 +10,16 @@ var
 //   test
 // `,
 
-INDENTATION_LIMIT = 0,
 TAB = 2,
-
-// prepare_line = (acc, line, i, lines) => {
-
-// },
 
 /* [graph, nodes idx, idx, current ind, next ind] */
 baseCase = [{ nodes: [{ id: "Academic", metadata: { names: ["Academic"] } }], edges: [] }, 0],
-
-// parse = (lines) => ({
-//   graph: H.superReduce (prepare_line) (baseCase) (lines)
-// })
 
 prepare_line = _common.R.juxt([
 _common.R.pipe(_common.R.match(/^\s*/g), _common.R.nth(0), _common.R.length),
 _common.R.trim]),
 
 
-// handleLine = (acc, [ind, name], i , arr) => {
-//   H.assert (ind % TAB === 0) (`incorrect indentation at ${i}: ${name}`)
-//   const names = R.map (R.path ([`metadata`, `names`])) (acc.nodes)
-//   const idx = H.findIndex (R.pipe (R.nth (0), R.gte (val[0]))) (R.slice (i + 1) (Infinity) (arr))
-//   // const directChildren = R.slice ()
-
-
-//   // console.log (val, idx)
-// },
-
-// addEdge = ,
 
 createGraph = function createGraph(graph) {return function (nodes_idx) {return function (name) {
       var names = _common.R.split(" / ")(name);var
@@ -132,77 +112,14 @@ _common.H.lines,
 prepare,
 handle,
 _common.R.nth(0),
-_common.R.objOf("graph"));
+_common.R.objOf("graph"));var _parse =
 
 
-// const [graph_final] = parse (topics)
+parse(topics),graph_final = _parse.graph;var
 
-// const {nodes, edges} = graph_final
+nodes = graph_final.nodes,edges = graph_final.edges;
 
-// R.map (console.log) (nodes)
-// R.map (console.log) (edges)
-var _default =
-parse;
+_common.R.map(console.log)(nodes);
+_common.R.map(console.log)(edges);var _default =
 
-// for (let i = 0; i < arrOfLines.length; i++) {
-//     const line = arrOfLines[i]
-
-//     // allow blank spaces
-//     if (line === '') continue;
-
-//     const numberOfSpaces = line.search(/\S/)
-//     const indentation = numberOfSpaces / TAB
-//     // console.log('indentation', arrOfLines[i], indentation)
-
-//     const topicsString = line.substring(numberOfSpaces)
-
-//     // allow comments (#)
-//     if (topicsString[0] === '#') continue;
-
-//     const topics = topicsString.split(' / ')
-//     const primaryTopicPascalCase = toPascalCase(topics[0], i)
-
-//     const createNode = `CREATE (${primaryTopicPascalCase}:Topic {name: '${primaryTopicPascalCase}', names:['${topics}']})\n`
-//     const createRelationship = (child, parent) => `CREATE (${child})-[:IS_PART_OF]->(${parent})\n`
-
-
-//     if (indentation === 0) {
-//       query += createNode
-//       // update topicsCum
-//       topicsCum.push(topics)
-//       // create parents
-//       parents = [primaryTopicPascalCase]
-//     } else if (indentation > 0 && (INDENTATION_LIMIT === 0 || indentation <= INDENTATION_LIMIT)) {
-
-//       // console.log('primaryTopicPascalCase, indentation, parents, ', primaryTopicPascalCase, indentation, parents, )
-//       parents = parents.slice(0, indentation)
-//       let match = 0
-
-//       for (let i = 0; i < topicsCum.length; i++) {
-//         for (let j = 0; j < topicsCum[i].length; j++) {
-//           for (let k = 0; k < topics.length; k++) {
-//             if (topicsCum[i][j] === topics[k]) {
-//               match = i
-//             }
-//           }
-//         }
-//       }
-
-//       if (match > 0) {
-//         // not very rigorous
-//         // console.log('MATCH!', )
-//         const primaryTopic = toPascalCase(topicsCum[match][0], 0)
-//         query += createRelationship(primaryTopic, last(parents))
-//         parents.push(primaryTopic)
-//       } else {
-//         query += createNode
-//         query += createRelationship(primaryTopicPascalCase, last(parents))
-//         topicsCum.push(topics)
-//         parents.push(primaryTopicPascalCase)
-//       }
-//     }
-//   }
-
-//   return query
-// }
-exports["default"] = _default;
+parse;exports["default"] = _default;

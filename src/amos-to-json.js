@@ -1,6 +1,6 @@
 import {R, H} from './common'
 
-const {default: topics} = require (`@solviofoundation/amos-topics`)
+const topics = require (`@solviofoundation/amos-topics`)
 
 const
 // topics = `
@@ -10,36 +10,16 @@ const
 //   test
 // `,
 
-INDENTATION_LIMIT = 0,
 TAB = 2,
-
-// prepare_line = (acc, line, i, lines) => {
-  
-// },
 
 /* [graph, nodes idx, idx, current ind, next ind] */
 baseCase = [{nodes: [{id:`Academic`, metadata: {names: [`Academic`]}}], edges: []}, 0],
-
-// parse = (lines) => ({
-//   graph: H.superReduce (prepare_line) (baseCase) (lines)
-// })
 
 prepare_line = R.juxt([
   R.pipe (R.match (/^\s*/g), R.nth (0), R.length),
   R.trim
 ]),
 
-// handleLine = (acc, [ind, name], i , arr) => {
-//   H.assert (ind % TAB === 0) (`incorrect indentation at ${i}: ${name}`)
-//   const names = R.map (R.path ([`metadata`, `names`])) (acc.nodes)
-//   const idx = H.findIndex (R.pipe (R.nth (0), R.gte (val[0]))) (R.slice (i + 1) (Infinity) (arr))
-//   // const directChildren = R.slice ()
-
-  
-//   // console.log (val, idx)
-// },
-
-// addEdge = ,
 
 createGraph = graph => nodes_idx => name => {
   const names = R.split (` / `) (name)
@@ -135,73 +115,11 @@ parse = R.pipe(
   R.objOf (`graph`)
 )
 
-// const [graph_final] = parse (topics)
+const {graph: graph_final} = parse (topics)
 
-// const {nodes, edges} = graph_final
+const {nodes, edges} = graph_final
 
-// R.map (console.log) (nodes)
-// R.map (console.log) (edges)
+R.map (console.log) (nodes)
+R.map (console.log) (edges)
 
 export default parse
-
-// for (let i = 0; i < arrOfLines.length; i++) {
-//     const line = arrOfLines[i]
-
-//     // allow blank spaces
-//     if (line === '') continue;
-
-//     const numberOfSpaces = line.search(/\S/)
-//     const indentation = numberOfSpaces / TAB
-//     // console.log('indentation', arrOfLines[i], indentation)
-
-//     const topicsString = line.substring(numberOfSpaces)
-    
-//     // allow comments (#)
-//     if (topicsString[0] === '#') continue;
-    
-//     const topics = topicsString.split(' / ')
-//     const primaryTopicPascalCase = toPascalCase(topics[0], i)
-    
-//     const createNode = `CREATE (${primaryTopicPascalCase}:Topic {name: '${primaryTopicPascalCase}', names:['${topics}']})\n`
-//     const createRelationship = (child, parent) => `CREATE (${child})-[:IS_PART_OF]->(${parent})\n`
-
-
-//     if (indentation === 0) {
-//       query += createNode
-//       // update topicsCum
-//       topicsCum.push(topics)
-//       // create parents
-//       parents = [primaryTopicPascalCase]
-//     } else if (indentation > 0 && (INDENTATION_LIMIT === 0 || indentation <= INDENTATION_LIMIT)) {
-  
-//       // console.log('primaryTopicPascalCase, indentation, parents, ', primaryTopicPascalCase, indentation, parents, )
-//       parents = parents.slice(0, indentation)
-//       let match = 0
-
-//       for (let i = 0; i < topicsCum.length; i++) {
-//         for (let j = 0; j < topicsCum[i].length; j++) {
-//           for (let k = 0; k < topics.length; k++) {
-//             if (topicsCum[i][j] === topics[k]) {
-//               match = i
-//             }
-//           }
-//         }
-//       }
-
-//       if (match > 0) {
-//         // not very rigorous
-//         // console.log('MATCH!', )
-//         const primaryTopic = toPascalCase(topicsCum[match][0], 0)
-//         query += createRelationship(primaryTopic, last(parents))
-//         parents.push(primaryTopic)
-//       } else {
-//         query += createNode
-//         query += createRelationship(primaryTopicPascalCase, last(parents))
-//         topicsCum.push(topics)
-//         parents.push(primaryTopicPascalCase)
-//       }
-//     }
-//   }
-
-//   return query
-// }
