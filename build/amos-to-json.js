@@ -49,7 +49,7 @@ createGraph = function createGraph(graph) {return function (nodes_idx) {return f
         return [graph_, _common.R.length(nodes)];
       } else {
         /* Connect to existing */var
-        names_sat = nodes_sat[0].metadata.names_sat;
+        names_sat = nodes_sat[0].metadata.names;
         var idx = _common.R.findIndex(_common.R.pipe(_common.R.path(["metadata", "names"]), _common.R.includes(names_sat[0])))(nodes);
 
         // R.over

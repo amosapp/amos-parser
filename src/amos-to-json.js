@@ -49,7 +49,7 @@ createGraph = graph => nodes_idx => name => {
     return [graph_, R.length (nodes)]
   } else {
     /* Connect to existing */
-    const {metadata: {names_sat}} = nodes_sat[0]
+    const {metadata: {names: names_sat}} = nodes_sat[0]
     const idx = R.findIndex (R.pipe (R.path ([`metadata`, `names`]), R.includes (names_sat[0]))) (nodes)
 
     // R.over
