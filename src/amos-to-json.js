@@ -50,7 +50,7 @@ createGraph = graph => nodes_idx => name => {
   } else {
     /* Connect to existing */
     const {metadata: {names_sat}} = nodes_sat[0]
-    const idx = R.findIndex (R.propEq (`id`, id)) (nodes)
+    const idx = R.findIndex (R.pipe (R.path ([`metadata`, `names`]), R.includes (names_sat[0]))) (nodes)
 
     // R.over
     const graph_ = {nodes: R.over (R.lensPath ([idx, `metadata`, `names`])) (R.union (names)) (nodes), edges: R.append ({child: names_sat[0], parent: nodes[nodes_idx].metadata.names[0]}) (edges)}

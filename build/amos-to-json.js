@@ -50,7 +50,7 @@ createGraph = function createGraph(graph) {return function (nodes_idx) {return f
       } else {
         /* Connect to existing */var
         names_sat = nodes_sat[0].metadata.names_sat;
-        var idx = _common.R.findIndex(_common.R.propEq("id", id))(nodes);
+        var idx = _common.R.findIndex(_common.R.pipe(_common.R.path(["metadata", "names"]), _common.R.includes(names_sat[0])))(nodes);
 
         // R.over
         var _graph_ = { nodes: _common.R.over(_common.R.lensPath([idx, "metadata", "names"]))(_common.R.union(names))(nodes), edges: _common.R.append({ child: names_sat[0], parent: nodes[nodes_idx].metadata.names[0] })(edges) };
