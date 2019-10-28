@@ -115,11 +115,11 @@ parse = R.pipe(
   R.objOf (`graph`)
 )
 
-const {graph: graph_final} = parse (topics)
+// const {graph: graph_final} = parse (topics)
 
-const {nodes, edges} = graph_final
+// const {nodes, edges} = graph_final
 
-R.map (console.log) (nodes)
-R.map (console.log) (edges)
+// R.map (console.log) (nodes)
+// R.map (console.log) (edges)
 
 export default parse

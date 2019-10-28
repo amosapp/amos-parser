@@ -112,14 +112,14 @@ _common.H.lines,
 prepare,
 handle,
 _common.R.nth(0),
-_common.R.objOf("graph"));var _parse =
+_common.R.objOf("graph"));
 
 
-parse(topics),graph_final = _parse.graph;var
+// const {graph: graph_final} = parse (topics)
 
-nodes = graph_final.nodes,edges = graph_final.edges;
+// const {nodes, edges} = graph_final
 
-_common.R.map(console.log)(nodes);
-_common.R.map(console.log)(edges);var _default =
-
+// R.map (console.log) (nodes)
+// R.map (console.log) (edges)
+var _default =
 parse;exports["default"] = _default;
