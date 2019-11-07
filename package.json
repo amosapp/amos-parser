@@ -1,5 +1,5 @@
 {
-  "name": "@solviofoundation/amos-parser",
+  "name": "@amosapp/amos-parser",
   "version": "1.3.0",
   "description": "",
   "main": "build/index.js",
@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/solviofoundation/amos-parser.git"
+    "url": "git+https://github.com/amosapp/amos-parser.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/solviofoundation/amos-parser/issues"
+    "url": "https://github.com/amosapp/amos-parser/issues"
   },
-  "homepage": "https://github.com/solviofoundation/amos-parser#readme",
+  "homepage": "https://github.com/amosapp/amos-parser#readme",
   "peerDependencies": {
-    "@solviofoundation/amos-topics": "0.1.0"
+    "@amosapp/amos-topics": "0.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
@@ -29,7 +29,7 @@
     "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
     "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "@babel/preset-env": "^7.6.0",
-    "@solviofoundation/amos-topics": "^1.5.4",
+    "@amosapp/amos-topics": "^1.5.4",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.3.0",
     "husky": "^3.0.5"
